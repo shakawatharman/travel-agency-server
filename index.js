@@ -18,6 +18,8 @@ async function run (){
         const database = client.db("travel-agency");
         const collection = database.collection("destination");
 
+        const ordersCollection = database.collection("orders");
+
         app.get('/events',async(req,res)=>{
             const eventsData = await collection.find({}).toArray();
             console.log(eventsData)
@@ -30,6 +32,14 @@ async function run (){
             console.log('hitting the post ',req.body)
             res.json(result);
         })
+
+        app.post('/orders',async(req,res)=>{
+            const newOrder = req.body;
+            const result = await ordersCollection.insertOne(newOrder)
+            console.log('hitting the post ',req.body)
+            res.json(result);
+        })
+
     }
     finally{
         // await client.close();
