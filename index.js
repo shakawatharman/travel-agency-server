@@ -26,6 +26,12 @@ async function run (){
             res.json(eventsData);
         })
 
+        app.get('/orders',async(req,res)=>{
+            const orderData = await ordersCollection.find({}).toArray();
+            console.log(orderData)
+            res.json(orderData);
+        })
+
         app.post('/events',async(req,res)=>{
             const newEvent = req.body;
             const result = await collection.insertOne(newEvent)
@@ -39,6 +45,8 @@ async function run (){
             console.log('hitting the post ',req.body)
             res.json(result);
         })
+
+
 
     }
     finally{
